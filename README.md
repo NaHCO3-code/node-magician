@@ -1,2 +1,8 @@
 # node-magician
-Translate nodes into your codes as Google Blockly.
+
+轻松创建节点式编程环境，直接导出可运行的代码。
+
+# features
+
+- 通过配置创建节点式编程环境
+- 导出需要的代码
