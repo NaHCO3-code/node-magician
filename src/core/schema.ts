@@ -1,12 +1,12 @@
-import { CreateBlockSchema, CreateDataSchema, CreateNodeSchema, ISchemaInfo, LiteralType, SocketType } from "../type"
+import { CreateSchema, IBlockSchema, IPowerSchema, ISchemaInfo, SocketType } from "../type"
 
 export const SchemaInfo: ISchemaInfo = {
   base: "stdJS",
-  title: "Node Magician Dev",
+  name: "Node Magician Dev",
   version: "0.0.1",
 }
 
-export const NodeSchema = CreateNodeSchema({
+export const PowerSchema = CreateSchema<IPowerSchema>({
   "console.log": {
     class: "basic",
     title: "Log",
@@ -15,33 +15,32 @@ export const NodeSchema = CreateNodeSchema({
         type: SocketType.string,
         title: "content",
         optional: true,
+        literal: false
       },
     ],
     template: (params) => `console.log(${params[0]})`
-  }
-})
-
-export const DataSchema = CreateDataSchema({
+  },
   "string": {
     class: "basic",
     title: "String",
-    param: [],
-    literal: [
+    param: [
       {
-        type: LiteralType.string,
-        title: "content"
+        type: SocketType.string,
+        title: "",
+        optional: true,
+        literal: true
       }
     ],
     template: (params) => `"${params[0]}"`
   }
 })
 
-export const BlockSchema = CreateBlockSchema({
+export const BlockSchema = CreateSchema<IBlockSchema>({
   "root": {
     class: "basic",
     title: "Start",
     param: [],
-    template: (codes, params) => `;(function ()=>{${codes.join(";")}});`
+    template: (codes) => `;(function ()=>{${codes.join(";")}});`
   },
   "if": {
     class: "basic",
@@ -50,7 +49,8 @@ export const BlockSchema = CreateBlockSchema({
       {
         type: SocketType.boolean,
         title: "condition",
-        optional: false
+        optional: false,
+        literal: false
       }
     ],
     template: (codes, params) => `if(${params[0]}){${codes.join(";")}}`
