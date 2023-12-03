@@ -5,10 +5,4 @@ export class vector2{
     this.x = x;
     this.y = y;
   }
-
-  addV(x: number, y: number){
-    this.x += x;
-    this.y += y;
-    return this;
-  }
 }
