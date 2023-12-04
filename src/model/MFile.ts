@@ -14,14 +14,14 @@ export class MFile{
 
   GetPowerNode(id: NodeId){
     if(!id){
-      throw new Error("NodeId is null");
+      return null;
     }
     return this.powerNodes.get(id)??null;
   }
 
   GetNode(id: NodeId): Node | null{
     if(!id){
-      throw new Error("NodeId is null");
+      return null;
     }
     return this.powerNodes.get(id) ?? this.dataNodes.get(id) ?? null;
   }
