@@ -1,5 +1,3 @@
-import { vector2 } from "./vector"
-
 export enum DataType{
   string,
   number,
