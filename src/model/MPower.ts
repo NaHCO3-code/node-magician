@@ -23,8 +23,4 @@ export class MPower{
       throw new Error("Invalid power schema");
     }
   }
-
-  compile(){
-    
-  }
 }

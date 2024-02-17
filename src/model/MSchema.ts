@@ -10,11 +10,6 @@ export enum MDataType{
   null,
 }
 
-export enum MExprType{
-  literal,
-  function,
-}
-
 export enum MInputMethod{
   text,
   number,
@@ -42,7 +37,6 @@ export interface MPowerSchema{
 
 export interface MExprSchema{
   title: string
-  type: MExprType
   method: MInputMethod
   template(input: any): string
   check(input: any, space: MSpace): MState

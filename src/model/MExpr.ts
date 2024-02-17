@@ -1,4 +1,4 @@
-import { getExprSchema, getPowerSchema } from "../controller/CSchema";
+import { getExprSchema } from "../controller/CSchema";
 import { Vector2 } from "../vector";
 import { MExprArchive, MExprSchema } from "./MSchema";
 
