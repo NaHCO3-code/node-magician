@@ -1,4 +1,5 @@
-import { vector2Like } from "../vector";
+import { vector2JSON } from "../vector";
+import { MSpace } from "./MSpace";
 
 export enum MDataType{
   string,
@@ -9,19 +10,26 @@ export enum MDataType{
   null,
 }
 
-export enum MInputMethod{
-  socket,
+export enum MExprType{
   literal,
+  function,
+}
+
+export enum MInputMethod{
+  text,
+  number,
+}
+
+export enum MState{
+  OK,
+  FAIL
 }
 
 export type NodeId = string;
 
-
 export interface MSocketSchema{
   title: string
   type: MDataType
-  method: MInputMethod
-  options: null | string[]
   optional: boolean
 }
 
@@ -32,10 +40,24 @@ export interface MPowerSchema{
   template(params: string[]): string
 }
 
+export interface MExprSchema{
+  title: string
+  type: MExprType
+  method: MInputMethod
+  template(input: any): string
+  check(input: any, space: MSpace): MState
+}
+
 export interface MPowerArchive{
-  position: vector2Like
+  position: vector2JSON
   schema: string
   prev: NodeId | null
   next: NodeId | null
   params: (NodeId | null)[]
+}
+
+export interface MExprArchive{
+  position: vector2JSON
+  schema: string
+  value: any
 }

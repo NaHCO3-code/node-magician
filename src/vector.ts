@@ -1,4 +1,4 @@
-export class vector2{
+export class Vector2{
   x: number
   y: number
   constructor(x: number, y: number){
@@ -7,12 +7,19 @@ export class vector2{
     return this;
   }
 
-  static fromVector2Like(v: vector2Like){
-    return new vector2(v.x, v.y);
+  toJSON(): vector2JSON{
+    return {
+      x: this.x,
+      y: this.y
+    }
+  }
+
+  static fromJSON(v: vector2JSON){
+    return new Vector2(v.x, v.y);
   }
 }
 
-export interface vector2Like{
+export interface vector2JSON{
   x: number
   y: number
 }

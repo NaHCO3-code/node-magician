@@ -1,4 +1,4 @@
-import { MPowerSchema, MDataType, MInputMethod } from "../model/MSchema";
+import { MPowerSchema, MDataType, MInputMethod, MExprSchema, MExprType, MState } from "../model/MSchema";
 
 function dictToMap<T>(dict: {[key: string]: T}){
   let ret = new Map<string, T>();
@@ -10,13 +10,11 @@ function dictToMap<T>(dict: {[key: string]: T}){
 
 export const PowerSchema = dictToMap<MPowerSchema>({
   "console.log": {
-    title: "log",
+    title: "Log",
     params: [
       {
         title: "content",
         type: MDataType.string,
-        method: MInputMethod.socket,
-        options: null,
         optional: false,
       }
     ],
@@ -24,25 +22,50 @@ export const PowerSchema = dictToMap<MPowerSchema>({
     template(params){
       return `console.log(${params[0]});`;
     }
-  },
-  "string":{
-    title: "string",
-    params: [
-      {
-        title: "value",
-        type: MDataType.string,
-        method: MInputMethod.literal,
-        options: null,
-        optional: true,
-      }
-    ],
-    result: MDataType.string,
-    template(params){
-      return `"${params[0]}"`
-    }
   }
 });
 
-export function getPowerSchema(name: string){
-  return PowerSchema.get(name);
+export const ExprSchema = dictToMap<MExprSchema>({
+  "string": {
+    title: "String",
+    type: MExprType.literal,
+    method: MInputMethod.text,
+    template(input){
+      return `"${input}"`;
+    },
+    check() {
+      return MState.OK;
+    }
+  }
+})
+
+export function getPowerSchema(name: string): MPowerSchema{
+  if(!PowerSchema.has(name)){
+    return {
+      title: "ERROR BLOCK",
+      params: [],
+      result: null,
+      template(){
+        throw new Error("Invaild Schema Found.");
+      }
+    }
+  }
+  return PowerSchema.get(name) as MPowerSchema;
+}
+
+export function getExprSchema(name: string): MExprSchema{
+  if(!ExprSchema.has(name)){
+    return {
+      title: "ERROR BLOCK",
+      type: MExprType.literal,
+      method: MInputMethod.text,
+      template(){
+        throw new Error("Invaild Schema Found.");
+      },
+      check(){
+        return MState.FAIL;
+      }
+    }
+  }
+  return ExprSchema.get(name) as MExprSchema;
 }

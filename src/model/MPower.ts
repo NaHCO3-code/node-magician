@@ -1,10 +1,10 @@
 import { getPowerSchema } from "../controller/CSchema";
-import { vector2 } from "../vector";
+import { Vector2 } from "../vector";
 import { MPowerArchive, MPowerSchema, NodeId } from "./MSchema";
 
 export class MPower{
+  position: Vector2
   schema: MPowerSchema
-  position: vector2
   prev: NodeId | null
   next: NodeId | null
   params: (NodeId | null)[]
@@ -12,7 +12,7 @@ export class MPower{
   constructor(node: MPowerArchive){
     this.check(node);
     this.schema = getPowerSchema(node.schema) as MPowerSchema;
-    this.position = vector2.fromVector2Like(node.position);
+    this.position = Vector2.fromJSON(node.position);
     this.prev = node.prev;
     this.next = node.next;
     this.params = node.params;
