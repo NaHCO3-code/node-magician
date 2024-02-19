@@ -1,3 +1,3 @@
-import { Space } from "../model/MSpace";
+import { MSpace } from "../model/MSpace";
 
-export const WorkSpace = new Space();
+export const WorkSpace = new MSpace();

@@ -1,8 +1,8 @@
 import { MPower } from "./MPower";
-import { NodeId } from "./MSchema";
+import { NodeID } from "./MSchema";
 
 export class MSpace{
-  powers: Map<NodeId, MPower>;
+  powers: Map<NodeID, MPower>;
   constructor(){
     this.powers = new Map();
   }

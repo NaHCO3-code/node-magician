@@ -20,7 +20,7 @@ export enum MState{
   FAIL
 }
 
-export type NodeId = string;
+export type NodeID = number;
 
 export interface MSocketSchema{
   title: string
@@ -45,9 +45,9 @@ export interface MExprSchema{
 export interface MPowerArchive{
   position: vector2JSON
   schema: string
-  prev: NodeId | null
-  next: NodeId | null
-  params: (NodeId | null)[]
+  prev: NodeID | null
+  next: NodeID | null
+  params: (NodeID | null)[]
 }
 
 export interface MExprArchive{

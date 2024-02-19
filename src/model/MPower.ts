@@ -1,20 +1,21 @@
 import { getPowerSchema } from "../controller/CSchema";
 import { Vector2 } from "../vector";
-import { MPowerArchive, MPowerSchema, NodeId } from "./MSchema";
+import { MPowerArchive, MPowerSchema, NodeID } from "./MSchema";
+import { MSpace } from "./MSpace";
 
 export class MPower{
   position: Vector2
   schema: MPowerSchema
-  prev: NodeId | null
-  next: NodeId | null
-  params: (NodeId | null)[]
+  prevID: NodeID | null
+  nextID: NodeID | null
+  params: (NodeID | null)[]
 
   constructor(node: MPowerArchive){
     this.check(node);
     this.schema = getPowerSchema(node.schema) as MPowerSchema;
     this.position = Vector2.fromJSON(node.position);
-    this.prev = node.prev;
-    this.next = node.next;
+    this.prevID = node.prev;
+    this.nextID = node.next;
     this.params = node.params;
   }
 
@@ -22,5 +23,9 @@ export class MPower{
     if(getPowerSchema(node.schema) == null){
       throw new Error("Invalid power schema");
     }
+  }
+
+  compile(){
+    
   }
 }
